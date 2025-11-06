@@ -1,0 +1,61 @@
+{
+  "version": 8,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 30,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build/${presetName}",
+      "installDir": "${sourceDir}/cmake-build/${presetName}/install",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x64",
+        "strategy": "external"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
+    },
+    {
+      "name": "windows-debug",
+      "displayName": "Windows Debug",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "windows-release",
+      "displayName": "Windows Release",
+      "inherits": "windows-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "windows-debug",
+      "configurePreset": "windows-debug"
+    },
+    {
+      "name": "windows-release",
+      "configurePreset": "windows-release"
+    }
+  ]
+}
